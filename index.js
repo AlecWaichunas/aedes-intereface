@@ -12,7 +12,7 @@ function logging(opts){
     }
 
     instance.on('client', function(client){
-        
+
     })
 
     instance.on('clientDisconnect', function(client){
@@ -35,3 +35,5 @@ function logging(opts){
                 
     })
 }
+
+module.exports = logging

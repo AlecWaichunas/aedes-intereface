@@ -4,11 +4,12 @@ var aedes = require('aedes');
 var logger = require('./')
 
 var server = http.createServer()
+
+logger({
+    instance: aedes(),
+    servers: [server]
+})
+
 ws.createServer({
     server: server
 }, aedes)
-
-logger({
-    instance: instance,
-    servers: [server]
-})

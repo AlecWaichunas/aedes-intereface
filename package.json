@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/AlecWaichunas/aedes-intereface/issues"
   },
-  "homepage": "https://github.com/AlecWaichunas/aedes-intereface#readme"
+  "homepage": "https://github.com/AlecWaichunas/aedes-intereface#readme",
+  "dependencies": {
+    "aedes": "^0.40.1",
+    "websocket-stream": "^5.5.0"
+  }
 }
