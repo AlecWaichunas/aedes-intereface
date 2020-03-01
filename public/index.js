@@ -79,7 +79,7 @@ function gatherData(datauri){
     xhttp.open("GET", datauri, false)
     xhttp.setRequestHeader("Content-Type", "application/json")
     xhttp.send()
-    return xhttp.responseText
+    return JSON.parse(xhttp.responseText)
 }
 
 init()

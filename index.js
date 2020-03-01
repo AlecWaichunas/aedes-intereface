@@ -24,7 +24,7 @@ function handleServer(req, res){
     }else if(req.url == '/clients'){
         //send over json data
         res.setHeader('Content-Type', 'application/json')
-        res.end(getConnectedClients())
+        res.end(JSON.stringify(getConnectedClients()))
     }else if(req.url == 'subscriptions'){
         //send over subscriptions
     }else if(req.url == 'published'){
@@ -67,12 +67,13 @@ function logging(opts) {
 
 //returns true if client is connected
 function isConnected(client) {
-    return db.getData("/clients/" + client.id + "/").connected == "true"
+    return db.getData("/clients/" + client + "/").connected == "true"
 }
 
 //returns all connected clients
 function getConnectedClients() {
     var connectedClients = []
+    console.log(db.getData("/clients/"))
     for (var client in db.getData("/clients/")) {
         if (isConnected(client)) {
             connectedClients.push(client)
