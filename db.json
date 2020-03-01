@@ -1,1 +1,38 @@
-{}
+{
+    "clients": {
+        "client1": {
+            "connected": "true"
+        },
+        "client2": {
+            "connected": "false"
+        },
+        "client3": {
+            "connected": "true"
+        },
+        "client4": {
+            "connected": "true"
+        }
+    },
+    "subscriptions": {
+        "client1": {
+            "subscribedto": "Sun"
+        },
+        "client2": {
+            "subscribedto": "Sun"
+        },
+        "client3": {
+            "subscribedto": "Mon"
+        },
+        "client4": {
+            "subscribedto": "Tues"
+        }
+    },
+    "clientError": {
+        "tooconfusing": {
+            "clientid": [
+                "client1",
+                "client2"
+            ]
+        }
+    }
+}
