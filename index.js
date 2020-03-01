@@ -2,18 +2,41 @@
 
 var { JsonDB } = require('node-json-db')
 var { Config } = require('node-json-db/dist/lib/JsonDBConfig')
+var http = require('http')
+var fs = require('fs')
+var port = 8080
 var db = new JsonDB(new Config("db", true, true, "/"))
+
+function readFile(path){
+    return fs.readFileSync(path)
+}
+
+function handleServer(req, res){
+    console.log(req.url)
+    if(req.url == '/'){
+        //send html
+        res.setHeader('Content-Type', 'text/html')
+        res.end(readFile('./public/index.html'))
+    }else if(req.url == '/js'){
+        //send js
+        res.setHeader('Content-Type', 'text/javascript')
+        res.end(readFile('./public/index.js'))
+    }else if(req.url == '/clients'){
+        //send over json data
+        res.setHeader('Content-Type', 'application/json')
+        res.end(getConnectedClients())
+    }else if(req.url == 'subscriptions'){
+        //send over subscriptions
+    }else if(req.url == 'published'){
+        //send over published
+    }else{
+        res.end()
+    }
+}
 
 function logging(opts) {
     var instance = opts.instance
-    var servers = opts.servers
-
-    if (!servers) {
-        if (opts.server)
-            servers = [opts.server]
-        else
-            servers = []
-    }
+    var server = http.createServer(handleServer).listen(port)
 
     instance.on('client', function (client) {
         db.push("/clients/" + client.id, { "connected": "true" }, false)
@@ -38,6 +61,8 @@ function logging(opts) {
     instance.on('published', function (packet, client) {
         db.push("/published/" + packet, { "clientid": [client.id] }, false)
     })
+
+    return server
 }
 
 //returns true if client is connected
@@ -56,9 +81,9 @@ function getConnectedClients() {
     return connectedClients
 }
 
-// //returns all clients
+// // //returns all clients
 // function getAllClients() {
-//     return db.getData("/clients")
+//      return db.getData("/clients")
 // }
 
 //returns topics to which client is subscribed. this shouldnt be 3 layers deep yet here we are
